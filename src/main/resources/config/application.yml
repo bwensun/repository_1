@@ -1,0 +1,10 @@
+# spring配置
+spring:
+
+  # 数据库配置
+  profiles:
+    active: dev
+
+  # 日志配置
+  logging:
+    config: classpath:logback.xml
