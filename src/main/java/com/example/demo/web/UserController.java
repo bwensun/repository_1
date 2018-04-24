@@ -2,6 +2,8 @@ package com.example.demo.web;
 
 import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
+import com.example.demo.web.support.Result;
+import com.example.demo.web.support.Success;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +29,12 @@ public class UserController {
      *
      * @param user
      */
-    public String register(User user){
+    @RequestMapping("register")
+    public Result register(User user){
         logger.info("用户注册开始");
         userService.register(user);
         logger.info("用户注册开始");
-        return ;
+        Result result = new Success(true);
+        return result;
     }
 }
