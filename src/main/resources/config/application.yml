@@ -29,5 +29,5 @@ spring:
     databse: 0
 
 #日志配置
-logging:
-  config: classpath:logback.xml
+#logging:
+  #config: classpath:logback-spring.xml
