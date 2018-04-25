@@ -7,6 +7,7 @@ import com.example.demo.web.support.Success;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +31,7 @@ public class UserController {
      * @param user
      */
     @RequestMapping("register")
+    @Cacheable(cacheNames ="user")
     public Result register(User user){
         logger.info("用户注册开始");
         userService.register(user);

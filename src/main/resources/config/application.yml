@@ -1,10 +1,33 @@
+# server配置
+server:
+  port: 8765
+
 # spring配置
 spring:
 
   # 数据库配置
-  profiles:
-    active: dev
+  datasource:
+    #driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/springboot?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
+    username: root
+    password: 285413
 
-  # 日志配置
-  logging:
-    config: classpath:logback.xml
+    #druid数据源配置
+    druid:
+      max-active: 5
+      max-wait: 6000
+
+  #redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    pool:
+      mix-idle: 20
+      min-idle: 1
+      max-active: 20
+      max-wait: 60000
+    databse: 0
+
+#日志配置
+logging:
+  config: classpath:logback.xml
