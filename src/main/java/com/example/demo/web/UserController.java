@@ -35,7 +35,22 @@ public class UserController {
     public Result register(User user){
         logger.info("用户注册开始");
         userService.register(user);
-        logger.info("用户注册开始");
+        logger.info("用户注册结束");
+        Result result = new Success(true);
+        return result;
+    }
+
+    /**
+     * 登录
+     *
+     * @param user
+     */
+    @RequestMapping("register")
+    @Cacheable(cacheNames ="user")
+    public Result login(User user){
+        logger.info("用户登录开始");
+        userService.login(user);
+        logger.info("用户登录结束");
         Result result = new Success(true);
         return result;
     }
