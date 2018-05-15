@@ -45,7 +45,7 @@ public class UserController {
      *
      * @param user
      */
-    @RequestMapping("register")
+    @RequestMapping("login")
     @Cacheable(cacheNames ="user")
     public Result login(User user){
         logger.info("用户登录开始");
