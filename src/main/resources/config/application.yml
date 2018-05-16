@@ -1,6 +1,7 @@
 # server配置
 server:
   port: 8765
+  context-path: /test
 
 # spring配置
 spring:

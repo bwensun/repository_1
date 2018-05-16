@@ -18,9 +18,12 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,8 +68,49 @@ public class TestController extends BaseController {
         //postForObject();
         //getEntity();
         //postForEntity();
-        exchange();
+        //exchange();
+        //postForLocation(); 返回uri,但是测试一直为null
+        //put(); 返回值为空
+        //patch 类似于get但是可以指定请求方法，
+        //Success success = restTemplate.patchForObject(url, HttpMethod.POST, Success.class);
+        // head请求 返回值为header请求头 // HttpHeaders httpHeaders = restTemplate.headForHeaders(url);
+        // delete restTemplate.delete(url);
+        //restTemplate.execute(url, HttpMethod.POST,)
         return "成功";
+    }
+
+    /**
+     *
+     *
+     */
+    private void put() {
+        String url = "http://api.yogovi.vip/api/a/51"+
+                "?apiId={apiId}&apiName={apiName}&createUid={createUid}&requestUri={requestUri}&serviceType={serviceType}";
+        Map<String, String> map = new HashMap<>();
+        map.put("apiId", "123456");
+        map.put("apiName", "测试接口");
+        map.put("createUid", "bowensun");
+        map.put("requestUri", "test/test");
+        map.put("serviceType","1");
+        restTemplate.put(url, map);
+    }
+
+    /**
+     * postLocation，返回新增资源的uri
+     *
+     * @return
+     */
+    private void postForLocation() {
+        String url = "http://api.yogovi.vip/api/a/51"+
+                "?apiId={apiId}&apiName={apiName}&createUid={createUid}&requestUri={requestUri}&serviceType={serviceType}";
+        Map<String, String> map = new HashMap<>();
+        map.put("apiId", "123456");
+        map.put("apiName", "测试接口");
+        map.put("createUid", "bowensun");
+        map.put("requestUri", "test/test");
+        map.put("serviceType","1");
+        URI uri = restTemplate.postForLocation(url, HttpMethod.POST, map);
+        System.out.println(uri.toString());
     }
 
     /**
@@ -78,6 +122,8 @@ public class TestController extends BaseController {
         MultiValueMap<String, Integer> map = new LinkedMultiValueMap<>();
         map.set("goodsStatus", 1);
         HttpEntity<MultiValueMap<String, Integer>> httpEntity = new HttpEntity(map, httpHeaders);
+        //ResponseEntity<? extends TypeReference<List<GoodsInfoVo>>> exchange = restTemplate.exchange(url, HttpMethod.POST, httpEntity, new TypeReference<List<GoodsInfoVo>>() {
+        //}.getClass());
         ResponseEntity<Success> exchange = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Success.class);
         Success success = exchange.getBody();
         if(success.getCode() == 200){
