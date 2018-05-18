@@ -68,7 +68,7 @@ public class TestController extends BaseController {
         //postForObject();
         //getEntity();
         //postForEntity();
-        //exchange();
+        exchange();
         //postForLocation(); 返回uri,但是测试一直为null
         //put(); 返回值为空
         //patch 类似于get但是可以指定请求方法，
@@ -121,10 +121,12 @@ public class TestController extends BaseController {
         HttpHeaders httpHeaders = new HttpHeaders();
         MultiValueMap<String, Integer> map = new LinkedMultiValueMap<>();
         map.set("goodsStatus", 1);
+        HttpEntity<MultiValueMap<String, Integer>> multiValueMapHttpEntity = new HttpEntity<>(map);
         HttpEntity<MultiValueMap<String, Integer>> httpEntity = new HttpEntity(map, httpHeaders);
         //ResponseEntity<? extends TypeReference<List<GoodsInfoVo>>> exchange = restTemplate.exchange(url, HttpMethod.POST, httpEntity, new TypeReference<List<GoodsInfoVo>>() {
         //}.getClass());
-        ResponseEntity<Success> exchange = restTemplate.exchange(url, HttpMethod.POST, httpEntity, Success.class);
+        ResponseEntity<Success> exchange = restTemplate.exchange(url, HttpMethod.POST, multiValueMapHttpEntity, Success.class);
+        //logger.info("请求方式为：", multiValueMapHttpEntity.getHeaders().getAccessControlRequestMethod().toString());
         Success success = exchange.getBody();
         if(success.getCode() == 200){
             Object data = success.getData();
