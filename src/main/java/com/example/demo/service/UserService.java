@@ -14,4 +14,11 @@ public interface UserService {
      * @param user
      */
     void register(User user);
+
+    /**
+     * 用户登录
+     *
+     * @param user
+     */
+    void login(User user);
 }

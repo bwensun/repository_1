@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.demo.common.config;
 
 import com.example.demo.common.filter.TestFilter;
 import org.apache.catalina.filters.RemoteIpFilter;

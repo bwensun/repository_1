@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.demo.repository.UserDao" >
 
+  <!--用户mapper-->
   <resultMap id="BaseResultMap" type="com.example.demo.domain.User" >
     <constructor >
       <idArg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -37,12 +38,9 @@
       #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, now())
   </insert>
 
-  <insert id="insertSelective" parameterType="entity.User" >
+  <insert id="insertSelective" parameterType="com.example.demo.domain.User" >
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        user_id,
-      </if>
       <if test="userName != null" >
         user_name,
       </if>
@@ -63,9 +61,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -86,6 +81,7 @@
       </if>
     </trim>
   </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="entity.User" >
     update user
     <set >

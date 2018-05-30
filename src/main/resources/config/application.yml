@@ -1,13 +1,15 @@
 # server配置
 server:
   port: 8765
+  context-path: /test
 
 # spring配置
 spring:
 
   # 数据库配置
   datasource:
-    #driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/springboot?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
     username: root
     password: 285413
@@ -27,7 +29,10 @@ spring:
       max-active: 20
       max-wait: 60000
     databse: 0
+  mvc:
+    static-path-pattern:
 
 #日志配置
 #logging:
-  #config: classpath:logback-spring.xml
+  #config: classpath:logback.xml
+
