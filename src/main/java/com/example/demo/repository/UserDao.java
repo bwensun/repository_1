@@ -1,9 +1,10 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+@Mapper
 @Repository
 public interface UserDao {
 
@@ -12,7 +13,7 @@ public interface UserDao {
      *
      * @param user
      */
-    void insertSelective(User user);
+    void insert(User user);
 
     /**
      * 登录
