@@ -7,6 +7,7 @@ import com.example.demo.domain.SysArea;
 import com.example.demo.service.TestService;
 import com.example.demo.web.support.BaseController;
 import com.example.demo.web.support.Success;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -43,6 +44,8 @@ public class TestController extends BaseController {
 
     static String url = "http://api.yogovi.vip/api/b/1030";
 
+    static String url2 = "";
+
     @Autowired
     private TestService testService;
     @Autowired
@@ -68,14 +71,15 @@ public class TestController extends BaseController {
         //postForObject();
         //getEntity();
         //postForEntity();
-        exchange();
+        //exchange();
         //postForLocation(); 返回uri,但是测试一直为null
         //put(); 返回值为空
         //patch 类似于get但是可以指定请求方法，
         //Success success = restTemplate.patchForObject(url, HttpMethod.POST, Success.class);
         // head请求 返回值为header请求头 // HttpHeaders httpHeaders = restTemplate.headForHeaders(url);
         // delete restTemplate.delete(url);
-        //restTemplate.execute(url, HttpMethod.POST,)
+        //restTemplate.execute(url, HttpMethod.POST,);
+        postEntity();
         return "成功";
     }
 
@@ -257,5 +261,31 @@ public class TestController extends BaseController {
         }
     }
 
+    private void postEntity(){
+        String url = "http://api.yogovi.vip/api/a/67";
+        MultiValueMap<String, Integer> map = new LinkedMultiValueMap<>();
+        map.set("pid", 320000);
+        ResponseEntity<Success> entity = restTemplate.postForEntity(url, map, Success.class);
+        Success success = entity.getBody();
+
+        if (success.getCode() == 200){
+            Object data = success.getData();
+            ObjectMapper mapper = new ObjectMapper();
+            List<SysArea> sysAreaList = null;
+            try {
+                String string = mapper.writeValueAsString(data);
+                sysAreaList = mapper.readValue(string, new TypeReference<List<SysArea>>() {
+                });
+
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            for (SysArea sysArea : sysAreaList) {
+                System.out.println(sysArea.getShortname());
+            }
+        }
+    }
 
 }

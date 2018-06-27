@@ -15,8 +15,8 @@ spring:
     password: 285413
 
 
-    #druid数据源配置
-    druid:
+  #druid数据源配置
+  druid:
       max-active: 5
       max-wait: 6000
 
@@ -28,19 +28,31 @@ spring:
       mix-idle: 20
       min-idle: 1
       max-active: 20
-      max-wait: 60000
+      max-wait: 1000
     databse: 0
 #  mvc:
 #    static-path-pattern: /index/**
   resources:
     static-locations: classpath:/index,/META-INF/resource
 
+  #邮件配置
+  mail:
+    host: smtp.qq.com
+    username: 1142925345@qq.com
+    password: pmlqatcseworiiah
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+          starttls.required: true
+
 #mybatis配置
   #配置实体类映射和mapper.xml文件路径
 mybatis:
   type-aliases-package: com.example.demo.domain
   mapper-locations: classpath:mapper/*.xml
-
 
 #日志配置
 #logging:
