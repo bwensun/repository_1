@@ -11,6 +11,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * 用户控制器
  *
@@ -31,7 +33,6 @@ public class UserController {
      * @param user
      */
     @RequestMapping("register")
-    @Cacheable(cacheNames ="user")
     public Result register(User user){
         logger.info("用户注册开始");
         userService.register(user);
@@ -46,7 +47,6 @@ public class UserController {
      * @param user
      */
     @RequestMapping("login")
-    @Cacheable(cacheNames ="user")
     public Result login(User user){
         logger.info("用户登录开始");
         userService.login(user);
@@ -54,4 +54,19 @@ public class UserController {
         Result result = new Success(true);
         return result;
     }
+
+    /**
+     * 查询用户列表
+     *
+     * @return
+     */
+    @RequestMapping("findList")
+    public Result findList(){
+        logger.info("查询用户列表开始");
+        List<User> records = userService.findList();
+        logger.info("查询用户列表结束");
+        Result result = new Success(records);
+        return result;
+    }
+
 }

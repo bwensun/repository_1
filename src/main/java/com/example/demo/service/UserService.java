@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.domain.User;
 
+import java.util.List;
+
 /**
  * 用户
  *
@@ -21,4 +23,11 @@ public interface UserService {
      * @param user
      */
     void login(User user);
+
+    /**
+     * 查询用户列表
+     *
+     * @return
+     */
+    List<User> findList();
 }

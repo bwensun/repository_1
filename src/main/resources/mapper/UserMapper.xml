@@ -26,4 +26,11 @@
     )values (
     #{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, now(), now())
   </insert>
+
+    <!--查询列表-->
+    <select id="findList" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from  user
+    </select>
 </mapper>

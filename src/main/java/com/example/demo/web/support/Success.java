@@ -15,6 +15,7 @@ public class Success implements Result,Serializable {
     public String message = "成功";
 
     public Success(Object data) {
+        this.data = data;
     }
 
     public Success() {
