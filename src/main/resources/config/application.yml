@@ -5,6 +5,10 @@ server:
 
 # spring配置
 spring:
+  #引用外部文件
+  profiles:
+    active: activemq
+
 
   # 数据库配置
   datasource:
@@ -30,6 +34,11 @@ spring:
       max-active: 20
       max-wait: 1000
     databse: 0
+
+  #rabbitmq消息
+  application:
+
+
 #  mvc:
 #    static-path-pattern: /index/**
   resources:

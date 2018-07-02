@@ -68,5 +68,4 @@ public class UserController {
         Result result = new Success(records);
         return result;
     }
-
 }
