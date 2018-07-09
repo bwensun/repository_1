@@ -19,11 +19,11 @@
     user_id, user_name, nick_name, phone, password, create_time, update_time
   </sql>
 
-
+  <!--用户注册-->
   <insert id="insert" parameterType="com.example.demo.domain.User" >
-    insert into user (user_name, nick_name,
-      phone, password, create_time)
-    values (#{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
-      #{phone,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, now())
+    insert into user (
+    user_name,password, create_time, update_time
+    )values (
+    #{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, now(), now())
   </insert>
 </mapper>

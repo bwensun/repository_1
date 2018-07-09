@@ -8,6 +8,7 @@ import com.example.demo.web.support.ErrorCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Optional;
@@ -18,6 +19,7 @@ import java.util.Optional;
  * @author bowensun
  */
 @Service
+@Transactional()
 public class UserServiceImpl implements UserService {
 
     @Autowired
