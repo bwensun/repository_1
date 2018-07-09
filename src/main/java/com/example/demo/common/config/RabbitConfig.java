@@ -1,10 +1,11 @@
 package com.example.demo.common.config;
 
 import org.springframework.amqp.core.Queue;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * description
+ * RabbitMQ配置类
  *
  * @author bowensun
  * @since 2018/7/2
@@ -12,7 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
+    @Bean
     public Queue Queue(){
-        return null;
+        return new Queue("rmq1");
     }
 }
