@@ -120,6 +120,11 @@
             <artifactId>javacsv</artifactId>
             <version>2.0</version>
         </dependency>
+        <!--fastDFS-->
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>

@@ -6,6 +6,7 @@ import com.example.demo.domain.GoodsInfoVo;
 import com.example.demo.domain.SysArea;
 import com.example.demo.service.TestService;
 import com.example.demo.web.support.BaseController;
+import com.example.demo.web.support.Result;
 import com.example.demo.web.support.Success;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -21,7 +22,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+import sun.java2d.loops.FillPath;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
@@ -35,7 +40,6 @@ import java.util.Map;
  * @author bowensun
  */
 @RestController
-@RequestMapping("test")
 public class TestController extends BaseController {
 
     private static Logger logger = LoggerFactory.getLogger(TestController.class);
@@ -81,6 +85,35 @@ public class TestController extends BaseController {
         //restTemplate.execute(url, HttpMethod.POST,);
         postEntity();
         return "成功";
+    }
+
+    /**
+     * 测试文件上传
+     *
+     * @param file
+     * @return
+     */
+    @RequestMapping("/upload")
+    public Result uoloadTest(MultipartFile file){
+        logger.info("测试上传文件开始");
+        testService.upload(file);
+        logger.info("测试上传文件结束");
+        return new Success("ok");
+    }
+
+    /**
+     * 测试文件下载
+     *
+     * @param filepath
+     * @param response
+     * @return
+     */
+    @RequestMapping("download")
+    public Result downloadTest(HttpServletResponse response, HttpServletRequest request, String filepath){
+        logger.info("测试上传文件开始");
+        testService.download(response, request, filepath);
+        logger.info("测试上传文件结束");
+        return new Success("ok");
     }
 
     /**
