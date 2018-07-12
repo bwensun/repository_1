@@ -6,6 +6,7 @@ import com.example.demo.common.exception.ServiceException;
 import com.example.demo.common.properties.SystemProperties;
 import com.example.demo.service.TestService;
 import com.example.demo.web.support.ErrorCode;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -69,7 +70,8 @@ public class TestServiceImpl implements TestService {
         String filename = recodingFileName(file.getName(), request);
         response.setContentType(Constant.contentType.json.getType());
         response.setCharacterEncoding("UTF-8");
-        response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+        response.setHeader("Content-Disposition", "attachment; filename*=utf-8'zh_cn'" + filename);
+        //response.setHeader("Content-Disposition", "attachment; filename=" + filename);
         try {
             fileInputStream = new FileInputStream(file);
             outputStream = response.getOutputStream();
@@ -89,10 +91,12 @@ public class TestServiceImpl implements TestService {
     //重新编码解决中文乱码问题
     private String recodingFileName(String name, HttpServletRequest request) {
         try {
-            if (request.getHeader("User-Agent").toUpperCase().indexOf("MSIE") > 0) {
-                name = URLEncoder.encode(name, "UTF-8");
+            String header = request.getHeader("User-Agent");
+            System.out.println(header);
+            if (request.getHeader("User-Agent").toUpperCase().indexOf("FIREFOX") > 0) {
+                name = "=?UTF-8?B?" + (new String(Base64.encodeBase64(name.getBytes("UTF-8")))) + "?=";
             }else {
-                name = new String(name.getBytes("UTF-8"), "ISO8859-1");
+                name = URLEncoder.encode(name, "UTF-8");
             }
         }catch (UnsupportedEncodingException e) {
             e.printStackTrace();
