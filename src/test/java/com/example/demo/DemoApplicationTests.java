@@ -18,6 +18,8 @@ public class DemoApplicationTests {
     private StringRedisTemplate stringRedisTemplate;
     @Autowired
     private RedisTemplate redisTemplate;
+//    @Autowired
+//    private RMQSender rmqSender;
 
     @Test
     public void contextLoads() {
@@ -38,4 +40,10 @@ public class DemoApplicationTests {
             System.out.println("exists is false");
         }
     }
+//
+//    @Test
+//    public void rmqTest(){
+//        rmqSender.sender();
+//    }
+
 }

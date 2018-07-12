@@ -4,6 +4,8 @@ import com.example.demo.domain.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface UserDao {
@@ -23,4 +25,11 @@ public interface UserDao {
      * @return
      */
     User findByUserNameAndPassword(String userName, String password);
+
+    /**
+     * 查询列表
+     *
+     * @return
+     */
+    List<User> findList();
 }
