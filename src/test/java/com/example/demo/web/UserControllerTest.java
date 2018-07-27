@@ -1,5 +1,8 @@
 package com.example.demo.web;
 
+import com.example.demo.service.impl.AsyncTask;
+import com.example.demo.web.support.Result;
+import com.example.demo.web.support.Success;
 import org.hibernate.engine.transaction.spi.IsolationDelegate;
 import org.junit.After;
 import org.junit.Before;
@@ -41,6 +44,8 @@ public class UserControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
+    @Autowired
+    private AsyncTask asyncTask;
 
     private MockMvc mockMvc;
 
@@ -83,4 +88,11 @@ public class UserControllerTest {
     private void assertThat(String value, boolean equals) {
     }
 
+    @Test
+    public Result taskTest2(){
+        asyncTask.task2();
+        asyncTask.task3();
+        asyncTask.task4();
+        return new Success("true");
+    }
 }

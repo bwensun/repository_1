@@ -4,32 +4,33 @@ package com.example.demo.web;
 import com.example.demo.common.properties.TestProperties;
 import com.example.demo.domain.GoodsInfoVo;
 import com.example.demo.domain.SysArea;
+import com.example.demo.domain.User;
 import com.example.demo.service.TestService;
+import com.example.demo.service.impl.AsyncTask;
 import com.example.demo.web.support.BaseController;
 import com.example.demo.web.support.Result;
 import com.example.demo.web.support.Success;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RequestCallback;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-import sun.java2d.loops.FillPath;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,21 @@ public class TestController extends BaseController {
     private TestService testService;
     @Autowired
     private TestProperties testProperties;
+    @Autowired
+    private AsyncTask asyncTask;
+
+    /**
+     * 异步调用测试
+     *
+     * @return
+     */
+    @PostMapping("/task")
+    public Result taskTest(){
+        System.out.println("异步调用测试开始");
+        testService.taskTask();
+        System.out.println("异步调用测试结束");
+        return new Success(true);
+    }
 
     /**
      * 测试properties属性获取
@@ -320,5 +336,7 @@ public class TestController extends BaseController {
             }
         }
     }
+
+
 
 }

@@ -27,6 +27,25 @@
     #{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}, now(), now())
   </insert>
 
+  <update id="update">
+    update `user`
+      <set>
+        <if test="user.userName != null and user.userName != ''">
+            `user_name` = #{user.userName},
+        </if>
+        <if test="user.nickName != null and user.nickName != ''">
+            nick_name = #{user.nickName},
+        </if>
+        <if test="user.phone != null and user.phone != ''">
+            phone = #{user.phone},
+        </if>
+        <if test="user.password != null and user.password != ''">
+            password = #{user.password},
+        </if>
+      </set>
+      where user_id = #{user.userId}
+  </update>
+
     <!--查询列表-->
     <select id="findList" resultMap="BaseResultMap">
         select

@@ -1,9 +1,11 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 测试
@@ -27,4 +29,11 @@ public interface TestService {
      * @param filepath
      */
     void download(HttpServletResponse response, HttpServletRequest request, String filepath);
+
+    /**
+     * 异步调用测试开始
+     *
+     *
+     */
+    void taskTask();
 }
