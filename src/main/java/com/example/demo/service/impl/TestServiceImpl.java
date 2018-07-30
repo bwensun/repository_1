@@ -8,11 +8,9 @@ import com.example.demo.domain.User;
 import com.example.demo.repository.UserDao;
 import com.example.demo.service.TestService;
 import com.example.demo.web.support.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.junit.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,9 +30,8 @@ import java.util.Random;
 
 @Service
 @Transactional(rollbackFor = Throwable.class)
+@Slf4j
 public class TestServiceImpl implements TestService {
-
-    static Logger logger = LoggerFactory.getLogger(TestServiceImpl.class);
 
     @Autowired
     private SystemProperties systemProperties;
@@ -56,10 +53,10 @@ public class TestServiceImpl implements TestService {
         int anInt = random.nextInt(70);
         System.out.println(anInt);
         User user = new User(String.valueOf(anInt), "----", "---", "---");
-        int i = random.nextInt(6);
+        //int i = random.nextInt(6);
         user.setUserId(2);
         userDao.update(user);
-
+        asyncTask.task1();
         TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronizationAdapter(){
             public void afterCommit(){
                 System.out.println("事务提交。。。。");
@@ -67,7 +64,7 @@ public class TestServiceImpl implements TestService {
                 list.stream().forEach(x -> System.out.println(x));
             }
         });
-        asyncTask.task1();
+
     }
 
 
@@ -92,7 +89,7 @@ public class TestServiceImpl implements TestService {
         try {
             file.transferTo(destFile);
         } catch (IOException e) {
-            logger.error(e.getCause().toString());
+            log.error(e.getCause().toString());
         }
     }
 
