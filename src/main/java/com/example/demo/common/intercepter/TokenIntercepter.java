@@ -48,7 +48,10 @@ public class TokenIntercepter {
                     response = (HttpServletResponse) arg;
                 }
             }
+
             boolean save = token.save();
+
+
 
             if (save) {
                 Object result = request.getSession().getAttribute(TOKEN_KEY);
