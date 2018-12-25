@@ -1,6 +1,7 @@
 package com.example.demo.web;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.demo.common.properties.TestProperties;
 import com.example.demo.domain.GoodsInfoVo;
 import com.example.demo.domain.SysArea;
@@ -27,9 +28,13 @@ import sun.java2d.loops.FillPath;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +59,47 @@ public class TestController extends BaseController {
     private TestService testService;
     @Autowired
     private TestProperties testProperties;
+
+    //请求端
+    @RequestMapping(value = "/GetFileBuffer")
+    public Object getFileBuffer(String id) {
+        System.out.println("进入");
+        String filename = "Nexus搭建maven私服.docx";
+//        JSONObject data = new JSONObject();
+//        data.put("filename", filename);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        headers.add("Pragma", "no-cache");
+        headers.add("Expires", "0");
+        MediaType mediaType= new MediaType("text","html", Charset.forName("utf-8"));
+        headers.setContentType(mediaType);
+        FileInputStream input=null;
+        File file=null;
+        long len=0L;
+        try {
+            file= Paths.get("C:/Nexus搭建maven私服.docx").toFile();
+            input=new FileInputStream(file);
+            len=file.length();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //设置返回实体的头部、长度及类型
+        ResponseEntity<byte[]> response=null ;
+        try {
+            byte[] b=new byte[input.available()];
+            input.read(b);
+            filename = new String(filename.getBytes("gbk"),"iso8859-1");
+            headers.add("Content-Disposition", "attachment;filename="+filename);
+            HttpStatus statusCode= HttpStatus.OK;
+            response = new ResponseEntity<byte[]>(b, headers, statusCode);
+            input.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return response;
+    }
+
+
 
     /**
      * 测试properties属性获取
