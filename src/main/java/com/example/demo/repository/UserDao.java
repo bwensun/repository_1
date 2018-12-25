@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.domain.User;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -32,4 +33,7 @@ public interface UserDao {
      * @return
      */
     List<User> findList();
+
+
+    void update(@Param("user") User user);
 }

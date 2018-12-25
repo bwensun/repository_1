@@ -1,5 +1,7 @@
 package com.example.demo.web;
 
+import com.example.demo.common.SubmitToken;
+import com.example.demo.common.intercepter.TokenIntercepter;
 import com.example.demo.domain.User;
 import com.example.demo.service.UserService;
 import com.example.demo.web.support.Result;
@@ -11,6 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -33,7 +36,8 @@ public class UserController {
      * @param user
      */
     @RequestMapping("register")
-    public Result register(User user){
+    @SubmitToken
+    public Result register(User user, HttpServletRequest request){
         logger.info("用户注册开始");
         userService.register(user);
         logger.info("用户注册结束");
